@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Polymer Starter Kit" />
-  <title>Polymer Starter Kit</title>
+  <title>Nuxeo Drive Log Viewer</title>
   <!-- Place favicon.ico in the `app/` directory -->
 
   <!-- Chrome for Android theme color -->
@@ -63,7 +63,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
-    <paper-drawer-panel id="paperDrawerPanel">
+    <paper-drawer-panel id="paperDrawerPanel" force-narrow="true">
       <!-- Drawer Scroll Header Panel -->
       <paper-scroll-header-panel drawer fixed>
 
@@ -100,45 +100,79 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span class="flex"></span>
 
           <!-- Toolbar icons -->
-          <paper-icon-button icon="refresh"></paper-icon-button>
-          <paper-icon-button icon="search"></paper-icon-button>
+          <paper-icon-button id="editButton" icon="assignment-returned" on-click="openLogSource"></paper-icon-button>
 
           <!-- Application name -->
           <div class="middle middle-container center horizontal layout">
-            <div class="app-name">Polymer Starter Kit</div>
+            <div class="app-name">Nuxeo Drive Log Viewer</div>
           </div>
 
           <!-- Application sub title -->
           <div class="bottom bottom-container center horizontal layout">
-            <div class="bottom-title paper-font-subhead">The future of the web today</div>
           </div>
 
         </paper-toolbar>
 
         <!-- Main Content -->
         <div class="content">
+          <!--
           <iron-ajax
               auto
-              url="consoleText"
+              url="consoleUnit"
               id="rawLogs"
               handle-as="text"
               on-response="parseLogs"
               debounce-duration="300"></iron-ajax>
-          <iron-pages attr-for-selected="data-route" selected="{{route}}">
-
+            -->
             <section data-route="home">
-              <paper-material elevation="1">
-                <my-greeting></my-greeting>
+              <template is="dom-if" if="{{events}}">
+              <table>
+              <template is="dom-repeat" items="{{events}}">
+                <tr class$="row_network_{{item.networkType}}">
+                  <td class$="row_LEVEL row_{{item.level}}" title="{{item.level}}"></td>
+                  <td>{{item.shortTime}}</td>
+                  <td title="{{item.class}}">
+                  <!-- 
+                  Remote: Blue
+                  Local: Green
+                  Unknown: Black
 
-                <p class="paper-font-subhead">You now have:</p>
-                <my-list></my-list>
+                  Watchers: icons:visibility
+                  File: editor:insert-drive-file
+                  Folder: icons:folder
+                  Generic: icons:assignment
+                  Core: icons:settings
 
-                <p class="paper-font-body2">Looking for more Web App layouts? Check out our <a href="https://github.com/PolymerElements/app-layout-templates">layouts</a> collection. You can also <a href="http://polymerelements.github.io/app-layout-templates/">preview</a> them live.</p>
-              </paper-material>
-
+                  Badge: with id
+                  -->
+                  <div style="display:inline-block" class="icons">
+                  <paper-icon-button id="number" icon="{{item.componentIcon}}" alt="inbox">
+                  </paper-icon-button>
+                  <template is="dom-if" if="{{item.currentRow}}"><paper-badge label="{{item.currentRow}}"></paper-badge></template>
+                  </div>
+                  </td>
+                  <td><template is="dom-if" if="{{item.request}}"><iron-icon icon="icons:cloud-queue"></iron-icon></template></td>
+                  <td>{{item.log}}</td>
+                </tr>
+              </template>
+              </table>
+              </template>
+              
+                
+              <paper-dialog id="logSource" modal="true">
+                <h2>Enter your log</h2>
+                <paper-dialog-scrollable>
+                  <div style="width: 1000px; padding: 20px;">
+                    <textarea id="inputLogs" style="width:100%;" rows="40" placeholder="Copy/Paste your log here"></textarea>
+                  </div>
+                </paper-dialog-scrollable>
+                <div class="buttons">
+                  <paper-button dialog-dismiss>Cancel</paper-button>
+                  <paper-button dialog-confirm>Ok</paper-button>
+                </div>
+              </paper-dialog>
             </section>
 
-          </iron-pages>
         </div>
       </paper-scroll-header-panel>
     </paper-drawer-panel>

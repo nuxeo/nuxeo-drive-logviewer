@@ -12,3 +12,35 @@ body {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
 }
+.row_LEVEL {
+	width: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.row_TRACE {
+	background-color: #868686;
+}
+.row_DEBUG, .row_INFO {
+	background-color: #31708f;
+}
+
+.row_ERROR, .row_CRITICAL {
+	background-color: #a94442;
+}
+
+.row_WARNING {
+	background-color: #8a6d3b;
+}
+
+.row_network_remote .icons {
+	color: #4285f4;
+}
+
+.row_network_local .icons {
+	color: #0f9d58;
+}
+
+.row_network_none {
+	--paper-badge-background: #000;
+}

@@ -65,30 +65,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <paper-drawer-panel id="paperDrawerPanel" force-narrow="true">
       <!-- Drawer Scroll Header Panel -->
-      <paper-scroll-header-panel drawer fixed>
+      <paper-scroll-header-panel drawer fixed id="filters">
 
         <!-- Drawer Toolbar -->
         <paper-toolbar id="drawerToolbar">
-          <span class="paper-font-title">Menu</span>
+          <span class="paper-font-title">Filters</span>
         </paper-toolbar>
 
         <!-- Drawer Content -->
-        <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
-          <a data-route="home" href="{{baseUrl}}">
-            <iron-icon icon="home"></iron-icon>
-            <span>Home</span>
-          </a>
-
-          <a data-route="users" href="{{baseUrl}}users">
-            <iron-icon icon="info"></iron-icon>
-            <span>Users</span>
-          </a>
-
-          <a data-route="contact" href="{{baseUrl}}contact">
-            <iron-icon icon="mail"></iron-icon>
-            <span>Contact</span>
-          </a>
-        </paper-menu>
+          <paper-toggle-button component="Core" on-change="updateComponentFilter" checked>Core</paper-toggle-button>
+          <paper-toggle-button component="RemoteWatcher" on-change="updateComponentFilter" checked>RemoteWatcher</paper-toggle-button>
+          <paper-toggle-button component="LocalWatcher" on-change="updateComponentFilter" checked>LocalWatcher</paper-toggle-button>
+          <paper-toggle-button component="Watchdog" on-change="updateComponentFilter" checked>Watchdog</paper-toggle-button>
+          <paper-toggle-button component="RemoteFolderProcessor" on-change="updateComponentFilter" checked>RemoteFolderProcessor</paper-toggle-button>
+          <paper-toggle-button component="RemoteFileProcessor" on-change="updateComponentFilter" checked>RemoteFileProcessor</paper-toggle-button>
+          <paper-toggle-button component="LocalFolderProcessor" on-change="updateComponentFilter" checked>LocalFolderProcessor</paper-toggle-button>
+          <paper-toggle-button component="LocalFileProcessor" on-change="updateComponentFilter" checked>LocalFileProcessor</paper-toggle-button>
+          <paper-toggle-button component="GenericProcessor" on-change="updateComponentFilter" checked>GenericProcessor</paper-toggle-button>
+          
       </paper-scroll-header-panel>
 
       <!-- Main Area -->
@@ -100,6 +94,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span class="flex"></span>
 
           <!-- Toolbar icons -->
+          <paper-dropdown-menu id="logsSelector" label="Logs" style="color: white;">
+            <paper-listbox class="dropdown-content" selected="{{filters.log}}" on-iron-select="filterEvents">
+              <paper-item>TRACE</paper-item>
+              <paper-item>DEBUG</paper-item>
+              <paper-item>INFO</paper-item>
+              <paper-item>WARNING</paper-item>
+              <paper-item>ERROR</paper-item>
+              <paper-item>CRITICAL</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
           <paper-icon-button id="editButton" icon="assignment-returned" on-click="openLogSource"></paper-icon-button>
 
           <!-- Application name -->

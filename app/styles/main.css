@@ -18,6 +18,9 @@ body {
 	padding-right: 3px;
 }
 
+#filters paper-toggle-button {
+	margin: 10px;
+}
 .row_TRACE {
 	background-color: #868686;
 }

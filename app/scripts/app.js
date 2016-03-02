@@ -15,6 +15,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
   var app = document.querySelector('#app');
   app.events = [];
+  app.filters = {};
+  app.filters.components = {};
+  app.filters.log = 0;
   // Sets app default base URL
   app.baseUrl = '/';
   if (window.location.port === '') {  // if production
@@ -291,8 +294,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.parseLogs();
     });
   };
+  app.updateComponentFilter = function(event) {
+    var component = event.target.getAttribute('component');
+    var activated = !event.target.checked;
+    app.filters.components[component] = activated;
+    if ('LocalWatcher' === component) {
+      // For NEXT engine
+      app.filters.components.SimpleWatcher = activated;
+    }
+    app.filterEvents();
+  };
   app.filterEvents = function() {
-    app.events = app.rawEvents;
+    var level = app.filters.log * 10;
+    var events = [];
+    for (var i = 0; i < app.rawEvents.length; i++) {
+      var filtered = false;
+      var event = app.rawEvents[i];
+      if (level > event.numLevel) {
+        filtered = true;
+      } else if (app.filters.components[event.component]) {
+        filtered = true;
+      }
+      if (!filtered) {
+        events.push(event);
+      }
+    }
+    app.events = events;
   };
   // Scroll page to top and expand header
   app.scrollPageToTop = function() {

@@ -115,15 +115,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Main Content -->
         <div class="content">
-          <!--
           <iron-ajax
-              auto
-              url="consoleUnit"
-              id="rawLogs"
+              url="jenkins.php"
+              id="ajaxLogs"
               handle-as="text"
-              on-response="parseLogs"
               debounce-duration="300"></iron-ajax>
-            -->
+
             <section data-route="home">
               <template is="dom-if" if="{{events}}">
               <table>
@@ -160,8 +157,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               
                 
               <paper-dialog id="logSource" modal="true">
-                <h2>Enter your log</h2>
+                <h2>Enter your log or choose a Jenkins build</h2>
                 <paper-dialog-scrollable>
+                  <div style="padding: 20px;">
+                    <paper-dropdown-menu id="jenkinsOs" label="Jenkins OS" style="float: left;">
+                      <paper-listbox class="dropdown-content" selected="1">
+                        <paper-item>Windows</paper-item>
+                        <paper-item>OSX</paper-item>
+                        <paper-item>Linux</paper-item>
+                      </paper-listbox>
+
+                    </paper-dropdown-menu>
+                    <paper-input id="jenkinsBuild" style="float: left" label="Build Number" type="number"></paper-input>
+                    <paper-icon-button on-click="loadJenkins" style="margin-top: 10px; width: 60px; height: 60px;" src="images/jenkins_icon.png"></paper-icon-button>
+                  </div>
                   <div style="width: 1000px; padding: 20px;">
                     <textarea id="inputLogs" style="width:100%;" rows="40" placeholder="Copy/Paste your log here"></textarea>
                   </div>

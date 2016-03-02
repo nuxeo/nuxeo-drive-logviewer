@@ -277,6 +277,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.rawEvents = events;
     app.filterEvents();
   };
+  app.loadJenkins = function() {
+    app.$.ajaxLogs.params.os = app.$.jenkinsOs.value;
+    if (app.$.jenkinsBuild.value > 0) {
+      app.$.ajaxLogs.params.build = app.$.jenkinsBuild.value;
+    } else {
+      delete app.$.ajaxLogs.params.build;
+    }
+    app.$.ajaxLogs.generateRequest();
+    app.$.ajaxLogs.addEventListener('response', function() {
+      app.logs = app.$.ajaxLogs.lastResponse;
+      app.$.logSource.close();
+      app.parseLogs();
+    });
+  };
   app.filterEvents = function() {
     app.events = app.rawEvents;
   };

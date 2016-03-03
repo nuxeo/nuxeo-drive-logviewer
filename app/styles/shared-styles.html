@@ -9,6 +9,25 @@
       paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
         pointer-events: none;
       }
+      .custom {
+        --paper-input-container-color: #ddd;
+        --paper-input-container-focus-color: #fff;
+        --paper-input-container-input: {
+            color: white;
+          }
+      }
+      paper-dropdown-menu.custom {
+          --paper-input-container-label: {
+            color: white;
+          };
+          --paper-input-container-input: {
+            color: white;
+          }
+          /* no underline */
+          --paper-input-container-underline: {
+            display: none;
+          };
+        }
 
       @media (max-width: 600px) {
         .page-title {

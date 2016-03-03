@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.filters = {};
   app.filters.components = {};
   app.filters.log = 0;
+  app.filters.text = '';
   // Sets app default base URL
   app.baseUrl = '/';
   if (window.location.port === '') {  // if production
@@ -320,6 +321,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       if (level > event.numLevel) {
         filtered = true;
       } else if (app.filters.components[event.component]) {
+        filtered = true;
+      } else if (app.filters.text.length > 0 && event.log.indexOf(app.filters.text) === -1) {
         filtered = true;
       }
       if (!filtered) {

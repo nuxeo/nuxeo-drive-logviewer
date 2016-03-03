@@ -94,7 +94,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span class="flex"></span>
 
           <!-- Toolbar icons -->
-          <paper-dropdown-menu id="logsSelector" label="Logs" style="color: white;">
+          <paper-input placeholder="Filter" on-change="filterEvents" value="{{filters.text}}" style="margin-top: -16px;" class="custom">
+            <paper-icon-button prefix icon="search" on-click="filterEvents"></paper-icon-button>
+          </paper-input>
+          <paper-dropdown-menu id="logsSelector" label="Logs" class="custom">
             <paper-listbox class="dropdown-content" selected="{{filters.log}}" on-iron-select="filterEvents">
               <paper-item>TRACE</paper-item>
               <paper-item>DEBUG</paper-item>

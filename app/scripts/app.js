@@ -49,7 +49,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.logs = app.$.inputLogs.value;
       app.parseLogs();
     });
-    app.$.logSource.open();
+    if (app.isTestMode()) {
+      app.loadJenkins();
+    } else {
+      app.$.logSource.open();
+    }
   });
 
   // Main area's paper-scroll-header-panel custom condensing transformation of
@@ -281,6 +285,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.filterEvents();
   };
   app.loadJenkins = function() {
+    if (app.isTestMode()) {
+      app.$.ajaxLogs.url = 'logTest';  
+    }
     app.$.ajaxLogs.params.os = app.$.jenkinsOs.value;
     if (app.$.jenkinsBuild.value > 0) {
       app.$.ajaxLogs.params.build = app.$.jenkinsBuild.value;
@@ -320,6 +327,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     }
     app.events = events;
+  };
+  app.isTestMode = function() {
+    return (top.location.hostname === 'localhost' && top.location.port === '5000');
   };
   // Scroll page to top and expand header
   app.scrollPageToTop = function() {

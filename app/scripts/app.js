@@ -286,6 +286,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.filterEvents();
   };
   app.loadJenkins = function() {
+    app.$.logSource.close();
+    app.$.loading.open();
     if (app.isTestMode()) {
       app.$.ajaxLogs.url = 'logTest';  
     }
@@ -298,8 +300,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.$.ajaxLogs.generateRequest();
     app.$.ajaxLogs.addEventListener('response', function() {
       app.logs = app.$.ajaxLogs.lastResponse;
-      app.$.logSource.close();
       app.parseLogs();
+      app.$.loading.close();
     });
   };
   app.updateComponentFilter = function(event) {

@@ -165,7 +165,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </table>
               </template>
               
-                
+              <paper-dialog id="loading" modal="true">
+                <div align="center">
+                  <paper-spinner active></paper-spinner>
+                  <h1>Loading</h1>
+                </div>
+              </paper-dialog>  
               <paper-dialog id="logSource" modal="true">
                 <h2>Enter your log or choose a Jenkins build</h2>
                 <paper-dialog-scrollable>

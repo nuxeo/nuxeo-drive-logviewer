@@ -93,6 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var startLine = 0;
     var endLine = 0;
     var re;
+    var m;
     var i;
     if (lines[0].indexOf('Started') === 0) {
       jenkins = true;
@@ -109,6 +110,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           re = /\[INFO\] *\[exec\] .*end captured logging.*/; 
         }
       }
+      re = /\[INFO\] *\[exec\] (.*)/;
+      var reason = '';
+      var detailReason = '';
+      // Walk backward to get the test and traceback
+      for (i = startLine - 2; i > 0; i--) {
+        if ((m = re.exec(lines[i])) !== null) {
+          if (m[1].indexOf('====') === 0) {
+            break;
+          }
+          if (m[1].indexOf('-----') === 0) {
+            reason = 'CATCH';
+            continue;
+          }
+          if (reason === 'CATCH') {
+            reason = m[1];
+            break;
+          }
+          detailReason = m[1] + detailReason;
+        } else {
+          break;
+        }
+      }
+      console.log('Reason: ' + reason);
+      console.log('Detail: ' + detailReason);
       console.log(' ' + (startLine + (lines.length - endLine)) + ' filtered lines');
     }
     if (endLine === 0) {
@@ -118,8 +143,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var events = [];
     var threadRow = {};
     var calls = {};
-    var currentEvent;
-    var m;
+    var currentEvent;    
     var rep;
     var mp;
     re = /.*(\d{4}-\d{2}-\d{2}) ([^ ]*) ([\d ]*) ([^ ]*) *([^ ]*) (.*)/;

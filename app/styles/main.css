@@ -18,6 +18,11 @@ body {
 	padding-right: 3px;
 }
 
+#drawer {
+	/* Had to use important as the drawer width seems hardcoded */
+	width: 300px !important;
+}
+
 #filters paper-toggle-button {
 	margin: 10px;
 }

@@ -73,15 +73,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </paper-toolbar>
 
         <!-- Drawer Content -->
-          <paper-toggle-button component="Core" on-change="updateComponentFilter" checked>Core</paper-toggle-button>
-          <paper-toggle-button component="RemoteWatcher" on-change="updateComponentFilter" checked>RemoteWatcher</paper-toggle-button>
-          <paper-toggle-button component="LocalWatcher" on-change="updateComponentFilter" checked>LocalWatcher</paper-toggle-button>
-          <paper-toggle-button component="Watchdog" on-change="updateComponentFilter" checked>Watchdog</paper-toggle-button>
-          <paper-toggle-button component="RemoteFolderProcessor" on-change="updateComponentFilter" checked>RemoteFolderProcessor</paper-toggle-button>
-          <paper-toggle-button component="RemoteFileProcessor" on-change="updateComponentFilter" checked>RemoteFileProcessor</paper-toggle-button>
-          <paper-toggle-button component="LocalFolderProcessor" on-change="updateComponentFilter" checked>LocalFolderProcessor</paper-toggle-button>
-          <paper-toggle-button component="LocalFileProcessor" on-change="updateComponentFilter" checked>LocalFileProcessor</paper-toggle-button>
-          <paper-toggle-button component="GenericProcessor" on-change="updateComponentFilter" checked>GenericProcessor</paper-toggle-button>
+          <paper-toggle-button component="Core" on-change="updateComponentFilter" checked><iron-icon icon='settings'></iron-icon>&nbsp;Core</paper-toggle-button>
+          <paper-toggle-button component="RemoteWatcher" on-change="updateComponentFilter" checked><iron-icon class="row_network_remote" icon='visibility'></iron-icon>&nbsp;RemoteWatcher</paper-toggle-button>
+          <paper-toggle-button component="LocalWatcher" on-change="updateComponentFilter" checked><iron-icon class="row_network_local" icon='visibility'></iron-icon>&nbsp;LocalWatcher</paper-toggle-button>
+          <paper-toggle-button component="Watchdog" on-change="updateComponentFilter" checked><iron-icon icon='track-changes'></iron-icon>&nbsp;Watchdog</paper-toggle-button>
+          <paper-toggle-button component="RemoteFolderProcessor" on-change="updateComponentFilter" checked><iron-icon class="row_network_remote" icon='folder'></iron-icon>&nbsp;RemoteFolderProcessor</paper-toggle-button>
+          <paper-toggle-button component="RemoteFileProcessor" on-change="updateComponentFilter" checked><iron-icon class="row_network_remote" icon='editor:insert-drive-file'></iron-icon>&nbsp;RemoteFileProcessor</paper-toggle-button>
+          <paper-toggle-button component="LocalFolderProcessor" on-change="updateComponentFilter" checked><iron-icon class="row_network_local" icon='folder'></iron-icon>&nbsp;LocalFolderProcessor</paper-toggle-button>
+          <paper-toggle-button component="LocalFileProcessor" on-change="updateComponentFilter" checked><iron-icon class="row_network_local" icon='editor:insert-drive-file'></iron-icon>&nbsp;LocalFileProcessor</paper-toggle-button>
+          <paper-toggle-button component="GenericProcessor" on-change="updateComponentFilter" checked><iron-icon icon='assignment'></iron-icon>&nbsp;GenericProcessor</paper-toggle-button>
           
       </paper-scroll-header-panel>
 
@@ -153,7 +153,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   Badge: with id
                   -->
                   <div style="display:inline-block" class="icons">
-                  <paper-icon-button id="number" icon="{{item.componentIcon}}" alt="inbox">
+                  <paper-icon-button id="number" icon="{{item.componentIcon}}">
                   </paper-icon-button>
                   <template is="dom-if" if="{{item.currentRow}}"><paper-badge label="{{item.currentRow}}"></paper-badge></template>
                   </div>
@@ -199,23 +199,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-toast id="toast">
       <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
     </paper-toast>
-
-    <!-- Uncomment next block to enable Service Worker support (1/2) -->
-    <!--
-    <paper-toast id="caching-complete"
-                 duration="6000"
-                 text="Caching complete! This app will work offline.">
-    </paper-toast>
-
-    <platinum-sw-register auto-register
-                          clients-claim
-                          skip-waiting
-                          on-service-worker-installed="displayInstalledToast">
-      <platinum-sw-cache default-cache-strategy="fastest"
-                         cache-config-file="cache-config.json">
-      </platinum-sw-cache>
-    </platinum-sw-register>
-    -->
 
   </template>
 

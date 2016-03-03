@@ -94,10 +94,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span class="flex"></span>
 
           <!-- Toolbar icons -->
+          <paper-input placeholder="Row" type="number" on-change="filterEvents" value="{{filters.row}}" style="margin-top: -16px; width:100px; z-index: 10;" class="custom">
+            <paper-icon-button prefix icon="label-outline" on-click="filterEvents"></paper-icon-button>
+          </paper-input>
           <paper-input placeholder="Filter" on-change="filterEvents" value="{{filters.text}}" style="margin-top: -16px;" class="custom">
             <paper-icon-button prefix icon="search" on-click="filterEvents"></paper-icon-button>
           </paper-input>
-          <paper-dropdown-menu id="logsSelector" label="Logs" class="custom">
+          <paper-dropdown-menu id="logsSelector" label="Level" class="custom" style="width: 100px;">
             <paper-listbox class="dropdown-content" selected="{{filters.log}}" on-iron-select="filterEvents">
               <paper-item>TRACE</paper-item>
               <paper-item>DEBUG</paper-item>

@@ -322,6 +322,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         filtered = true;
       } else if (app.filters.components[event.component]) {
         filtered = true;
+      } else if (app.filters.row > 0 && event.currentRow !== app.filters.row) {
+        filtered = true;
       } else if (app.filters.text.length > 0 && event.log.indexOf(app.filters.text) === -1) {
         filtered = true;
       }

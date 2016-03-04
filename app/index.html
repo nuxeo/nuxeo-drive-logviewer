@@ -114,7 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- Application name -->
           <div class="middle middle-container center horizontal layout">
-            <div class="app-name" on-click="displayToastReason">{{title}}<paper-tooltip><my-nl2br content="[[reason]]"></my-nl2br></paper-tooltip></div>
+            <div class="app-name" style="cursor:pointer;" on-click="displayToastReason">{{title}}<paper-tooltip><my-nl2br content="[[reason]]"></my-nl2br></paper-tooltip></div>
           </div>
 
           <!-- Application sub title -->
@@ -158,7 +158,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <template is="dom-if" if="{{item.currentRow}}"><paper-badge label="{{item.currentRow}}" on-click="displayToastRow" row="{{item}}"></paper-badge></template>
                   </div>
                   </td>
-                  <td><template is="dom-if" if="{{item.request}}"><iron-icon icon="icons:cloud-queue" on-click="displayToastRequest" row="{{item}}"></iron-icon></template></td>
+                  <td><template is="dom-if" if="{{item.request}}"><iron-icon style="cursor: pointer;" icon="icons:cloud-queue" on-click="displayToastRequest" row="{{item}}"></iron-icon></template></td>
                   <td>{{item.log}}</td>
                 </tr>
               </template>

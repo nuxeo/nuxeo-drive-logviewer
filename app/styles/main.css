@@ -52,3 +52,7 @@ body {
 .row_network_none {
 	--paper-badge-background: #000;
 }
+
+.json {
+	word-break: break-all;
+}

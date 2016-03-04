@@ -114,7 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- Application name -->
           <div class="middle middle-container center horizontal layout">
-            <div class="app-name">Nuxeo Drive Log Viewer</div>
+            <div class="app-name" on-click="displayToastReason">{{title}}<paper-tooltip><my-nl2br content="[[reason]]"></my-nl2br></paper-tooltip></div>
           </div>
 
           <!-- Application sub title -->
@@ -155,10 +155,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <div style="display:inline-block" class="icons">
                   <paper-icon-button id="number" icon="{{item.componentIcon}}">
                   </paper-icon-button>
-                  <template is="dom-if" if="{{item.currentRow}}"><paper-badge label="{{item.currentRow}}"></paper-badge></template>
+                  <template is="dom-if" if="{{item.currentRow}}"><paper-badge label="{{item.currentRow}}" on-click="displayToastRow" row="{{item}}"></paper-badge></template>
                   </div>
                   </td>
-                  <td><template is="dom-if" if="{{item.request}}"><iron-icon icon="icons:cloud-queue"></iron-icon></template></td>
+                  <td><template is="dom-if" if="{{item.request}}"><iron-icon icon="icons:cloud-queue" on-click="displayToastRequest" row="{{item}}"></iron-icon></template></td>
                   <td>{{item.log}}</td>
                 </tr>
               </template>
@@ -201,10 +201,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </paper-scroll-header-panel>
     </paper-drawer-panel>
 
-    <paper-toast id="toast">
+    <paper-toast id="toast" duration="0">
+      <my-nl2br content="[[toastContent]]"></my-nl2br>
       <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
     </paper-toast>
-
+    <paper-toast id="toastRequest" duration="0">
+      <div style="padding-bottom: 10px;">
+      <table>
+      <tr>
+        <td colspan="2"><h2>Request</h2></td>
+      </tr>
+      <tr>
+        <td>URL</td>
+        <td>{{toastRequestRow.request.url}}</td>
+      </tr>
+      <tr>
+        <td>Headers</td>
+        <td class="json">{{toastRequestRow.request.headers}}</td>
+      </tr>
+      <tr>
+        <td>Cookies</td>
+        <td class="json">{{toastRequestRow.request.cookies}}</td>
+      </tr>
+      <tr>
+        <td>Payload</td>
+        <td class="json">{{toastRequestRow.request.payload}}</td>
+      </tr>
+      <tr>
+        <td colspan="2"><h2>Response</h2></td>
+      </tr>
+      <tr>
+        <td>Payload</td>
+        <td class="json">{{toastRequestRow.response}}</td>
+      </tr>
+      </table>
+      </div>
+      <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toastRequest.hide()">Ok</span>
+    </paper-toast>
   </template>
 
   <!-- build:js scripts/app.js -->

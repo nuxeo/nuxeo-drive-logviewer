@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
   var app = document.querySelector('#app');
   app.events = [];
+  app.title = 'Nuxeo Drive Log Viewer';
   app.filters = {};
   app.filters.components = {};
   app.filters.log = 0;
@@ -124,16 +125,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             continue;
           }
           if (reason === 'CATCH') {
-            reason = m[1];
-            break;
+            detailReason = m[1] + '\n' + detailReason;
+            re = /\[INFO\] *\[exec\] .*: (.*) .*/;
+            m = re.exec(lines[i]);
+            reason = app.title = m[1];
+            app.reason = detailReason;
           }
-          detailReason = m[1] + detailReason;
+          detailReason = m[1] + '\n' + detailReason;
         } else {
           break;
         }
       }
-      console.log('Reason: ' + reason);
-      console.log('Detail: ' + detailReason);
       console.log(' ' + (startLine + (lines.length - endLine)) + ' filtered lines');
     }
     if (endLine === 0) {
@@ -204,7 +206,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
           }
           if (m[6].indexOf('Response for ') === 0) {
-            calls[currentEvent.threadId].response = m[6];
+            rep = /Response for '.*' with cookies \[.*\]: '(.*)'/;
+            if ((mp = rep.exec(m[6])) !== null) {
+              calls[currentEvent.threadId].response = mp[1];
+            } else {
+              calls[currentEvent.threadId].response = m[6];
+            }
             continue;
           }
         }
@@ -371,6 +378,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
   app.closeDrawer = function() {
     app.$.paperDrawerPanel.closeDrawer();
+  };
+  app.displayToastReason = function() {
+    app.toastContent = app.reason;
+    app.$.toast.show();
+  };
+  app.displayToastRequest = function(event) {
+    app.toastRequestRow = event.target.row;
+    app.$.toastRequest.show();
   };
 
 })(document);

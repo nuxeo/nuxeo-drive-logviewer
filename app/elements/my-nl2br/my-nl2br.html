@@ -9,18 +9,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="my-greeting">
+<dom-module id="my-nl2br">
   <template>
-    <style include="shared-styles"></style>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2 class="page-title">{{greeting}}</h2>
-    <span class="paper-font-body2">Update text to change the greeting.</span>
-    <!-- Listens for "input" event and sets greeting to <input>.value -->
-    <input class="paper-font-body2" value="{{greeting::input}}">
+    <template is="dom-repeat" items="{{lines}}">
+      <span>{{item}}</span><br />
+    </template>
   </template>
 
   <script>
@@ -28,14 +21,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       'use strict';
       
       Polymer({
-        is: 'my-greeting',
+        is: 'my-nl2br',
 
         properties: {
-          greeting: {
+          content: {
             type: String,
-            value: 'Welcome!',
-            notify: true
+            observer: '_updateContent'
           }
+        },
+        _updateContent: function() {
+          this.lines = this.content.split('\n');
         }
       });
     })();

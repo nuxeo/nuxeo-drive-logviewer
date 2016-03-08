@@ -207,12 +207,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
           if (m[6].indexOf('Response for ') === 0) {
             rep = /Response for '.*' with cookies \[.*\]: '(.*)'/;
-            if ((mp = rep.exec(m[6])) !== null) {
-              calls[currentEvent.threadId].response = mp[1];
-            } else {
-              calls[currentEvent.threadId].response = m[6];
+            if (calls[currentEvent.threadId] !== undefined) {
+              if ((mp = rep.exec(m[6])) !== null) {
+                calls[currentEvent.threadId].response = mp[1];
+              } else {
+                calls[currentEvent.threadId].response = m[6];
+              }
+              continue;
             }
-            continue;
           }
         }
         // Get the Thread start message to get the component

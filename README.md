@@ -20,6 +20,28 @@ You can also copy/paste a log into the textarea
 
 You can then filter by components, see the result of network calls by clicking on the cloud, filter by row or filter by text or log level.
 
+To launch the viewer locally you can just type :
+
+```
+gulp serve
+```
+
+In local mode the cross-site scripting prevents the log download from Jenkins
+
+## Docker container
+
+You can run your own host by building the website
+
+```
+gulp serve
+```
+
+Then create the docker container with
+
+```
+docker build .
+```
+You now have a docker image with nginx and php to host a working version that can connect to the Nuxeo Jenkins.
 
 ## Licensing
 

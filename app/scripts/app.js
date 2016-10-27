@@ -349,6 +349,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
   app.filterEvents = function() {
     var level = app.filters.log * 10;
+    if (!app.rawEvents) {
+      return;
+    }
     var events = [];
     for (var i = 0; i < app.rawEvents.length; i++) {
       var filtered = false;

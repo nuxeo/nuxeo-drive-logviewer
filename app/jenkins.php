@@ -1,5 +1,5 @@
 <?php
-$url = "http://qa.nuxeo.org/jenkins/view/Drive/job/FT-nuxeo-drive-master-";
+$url = "http://qa.nuxeo.org/jenkins/view/Drive/job/master/job/FT-nuxeo-drive-master-";
 
 $build = "lastFailedBuild";
 if (isset($_GET["build"]) && $_GET["build"] > 0) {
